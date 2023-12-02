@@ -1,3 +1,8 @@
+package day1
+
+import utils.println
+import utils.readInput
+
 const val zero = "zero"
 const val one = "one"
 const val two = "two"
