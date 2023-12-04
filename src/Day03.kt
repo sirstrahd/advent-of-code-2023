@@ -3,6 +3,7 @@ package day03
 import utils.println
 import utils.readInput
 import java.util.*
+import kotlin.system.measureTimeMillis
 
 fun main() {
     fun obtainAllPositions(lines: List<String>): AllPositions {
@@ -12,7 +13,7 @@ fun main() {
             for ((lineIndex, character) in line.withIndex()) {
                 if (character.isDigit()) {
                     if (lastStart == -1) {
-                        lastStart = lineIndex;
+                        lastStart = lineIndex
                     }
                 } else {
                     if (character != '.') {
@@ -21,7 +22,7 @@ fun main() {
                     if (lastStart != -1) {
                         allPositions.numbers.add(NumberPositions(XY(lastStart, linesIndex), XY(lineIndex - 1, linesIndex)))
                     }
-                    lastStart = -1;
+                    lastStart = -1
                 }
             }
             if (lastStart != -1) {
@@ -38,7 +39,7 @@ fun main() {
             for ((lineIndex, character) in line.withIndex()) {
                 if (character.isDigit()) {
                     if (lastStart == -1) {
-                        lastStart = lineIndex;
+                        lastStart = lineIndex
                     }
                 } else {
                     if (character == '*') {
@@ -47,7 +48,7 @@ fun main() {
                     if (lastStart != -1) {
                         allPositions.numbers.add(NumberPositions(XY(lastStart, linesIndex), XY(lineIndex - 1, linesIndex)))
                     }
-                    lastStart = -1;
+                    lastStart = -1
                 }
             }
             if (lastStart != -1) {
@@ -60,17 +61,17 @@ fun main() {
     fun isInContact(numPos: XY, charPos: XY): Boolean {
         if (numPos.x == charPos.x || numPos.x == charPos.x - 1 || numPos.x == charPos.x + 1) {
             if (numPos.y == charPos.y || numPos.y == charPos.y - 1 || numPos.y == charPos.y + 1) {
-                return true;
+                return true
             }
         }
-        return false;
+        return false
     }
 
     fun isInContactRange(numberPos: NumberPositions, charPos: XY): Boolean {
         var x = numberPos.start.x
         while (x <= numberPos.end.x) {
             if (isInContact(XY(x, numberPos.start.y), charPos)) {
-                return true;
+                return true
             }
             x++
         }
@@ -101,18 +102,24 @@ fun main() {
                 0
             }
         }
-        return result.sum();
+        return result.sum()
     }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day03_test")
-    val testOutput = part1(testInput)
-    check(testOutput == 4361) { "expected 4361 got $testOutput" }
-    val input = readInput("Day03")
-    part1(input).println()
-    val testOutputPart2 = part2(testInput)
-    check(testOutputPart2 == 467835) { "expected 467835 got $testOutputPart2" }
-    part2(input).println()
+    val total = measureTimeMillis {
+        // test if implementation meets criteria from the description, like:
+        val testInput = readInput("Day03_test")
+        val testOutput = part1(testInput)
+        check(testOutput == 4361) { "expected 4361 got $testOutput" }
+        val input = readInput("Day03")
+        val timeInMillis1 = measureTimeMillis { part1(input).println() }
+        val testOutputPart2 = part2(testInput)
+        check(testOutputPart2 == 467835) { "expected 467835 got $testOutputPart2" }
+        val timeInMillis2 = measureTimeMillis {
+            part2(input).println()
+        }
+        println("Took $timeInMillis1 ms to run solution for part 1")
+        println("Took $timeInMillis2 ms to run solution for part 2")
+    }
+    println("Total time $total ms to run solution")
 }
 
 class AllPositions(
