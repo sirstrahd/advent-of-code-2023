@@ -172,7 +172,7 @@ private fun getTypePart2(hand: String): HandType {
         return getByJokers(sortedList[0], jokers)
     } else if (sortedList[0] == 2 && (sortedList.size == 1 || sortedList[1] == 1)) {
         return getByJokers(sortedList[0], jokers)
-    } else if (sortedList[0] == 2 && (sortedList.size == 1 || sortedList[1] == 2)) {
+    } else if (sortedList[0] == 2 && (sortedList[1] == 2)) {
         return if (jokers == 0) {
             HandType.TWO_PAIR
         } else {
@@ -182,7 +182,7 @@ private fun getTypePart2(hand: String): HandType {
         return getByJokers(sortedList[0], jokers)
     } else if (sortedList[0] == 4) {
         return getByJokers(sortedList[0], jokers)
-    } else if (sortedList[0] == 3 && sortedList.size == 1 || sortedList.size > 1 &&  sortedList[1] == 2) {
+    } else if (sortedList[0] == 3 && sortedList[1] == 2) {
         return HandType.FULL_HOUSE
     } else if (sortedList[0] == 5) {
         return HandType.FIVE
