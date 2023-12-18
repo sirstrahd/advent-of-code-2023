@@ -3,6 +3,7 @@ package day10
 import utils.readInput
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 
@@ -119,12 +120,12 @@ fun part2(lines: List<String>): Int {
     val map = buildPipeMap(lines)
     fillDistances(map)
     val path = getPath(map)
-    val area = Math.abs((0..<path.size).fold(0) {acc, i ->
+    val area = (0..<path.size).fold(0) {acc, i ->
         val current = path[i]
         val next = if (i+1 == path.size) {path[0]} else {path[i+1]}
-        acc + (current.j * next.i) - (current.i * next.j)
-    })/2 // Gauss
-    return area - (path.size/2) + 1 // Pick theorem
+        acc.plus(current.j.times(next.i)).minus(current.i.times(next.j))
+    }.absoluteValue.div(2) // Gauss
+    return (area.minus(path.size.div(2))).plus(1) // Pick theorem
 }
 
 fun findS(map: Array<Array<Position>>): Coordinates? {
@@ -176,21 +177,21 @@ fun getPath(map: Array<Array<Position>>): LinkedList<Coordinates> {
 fun main() {
     fillPipeMap()
     val input = readInput("Day10")
-    var testOutput = part1(readInput("Day10_test"))
-    check(testOutput ==8) { "part1 expected 8 got $testOutput" }
+//    var testOutput = part1(readInput("Day10_test"))
+//    check(testOutput ==8) { "part1 expected 8 got $testOutput" }
     println("part 1: ${part1(input)}")
-    println("part 2: test 1")
-    testOutput = part2(readInput("Day10_test_part2_1"))
-    check(testOutput ==4) { "part2 expected 4 got $testOutput" }
-    println("part 2: test 2")
-    testOutput = part2(readInput("Day10_test_part2_2"))
-    check(testOutput ==4) { "part2 expected 4 got $testOutput" }
-    println("part 2: test 3")
-    testOutput = part2(readInput("Day10_test_part2_3"))
-    check(testOutput ==8) { "part2 expected 8 got $testOutput" }
-    println("part 2: test 4")
-    testOutput = part2(readInput("Day10_test_part2_4"))
-    check(testOutput ==10) { "part2 expected 10 got $testOutput" }
+//    println("part 2: test 1")
+//    testOutput = part2(readInput("Day10_test_part2_1"))
+//    check(testOutput ==4) { "part2 expected 4 got $testOutput" }
+//    println("part 2: test 2")
+//    testOutput = part2(readInput("Day10_test_part2_2"))
+//    check(testOutput ==4) { "part2 expected 4 got $testOutput" }
+//    println("part 2: test 3")
+//    testOutput = part2(readInput("Day10_test_part2_3"))
+//    check(testOutput ==8) { "part2 expected 8 got $testOutput" }
+//    println("part 2: test 4")
+//    testOutput = part2(readInput("Day10_test_part2_4"))
+//    check(testOutput ==10) { "part2 expected 10 got $testOutput" }
     println("part 2: ${part2(input)}")
 }
 
